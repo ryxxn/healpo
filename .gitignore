@@ -8,6 +8,12 @@
 # testing
 /coverage
 
+# .vscode
+.vscode
+
+# .env
+.env
+
 # production
 /build
 
