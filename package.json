@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.52.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,6 +14,7 @@
     "framer-motion": "^11.3.30",
     "react": "19.0.0-rc-b57d2823-20240822",
     "react-dom": "19.0.0-rc-b57d2823-20240822",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
