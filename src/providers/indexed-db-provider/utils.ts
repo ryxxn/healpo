@@ -62,6 +62,24 @@ export const getData =
     });
   };
 
+export const getAllData =
+  (db: IDBDatabase) =>
+  <T>(storeName: string): Promise<T> => {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], 'readonly');
+      const store = transaction.objectStore(storeName);
+      const request = store.getAll();
+
+      request.onsuccess = () => {
+        resolve(request.result as T);
+      };
+
+      request.onerror = (event) => {
+        reject((event.target as IDBRequest).error);
+      };
+    });
+  };
+
 export const updateData =
   (db: IDBDatabase) =>
   <T>(storeName: string, data: T): Promise<void> => {
