@@ -23,7 +23,9 @@ const Loadable = (Component: ElementType) => (props: any) =>
 // ----------------------------------------------------------------------
 
 // APP
-export const MainPage = Loadable(lazy(() => import('../pages/main')));
+export const MainPage = Loadable(lazy(() => import('../pages/main/page')));
+export const DetailPage = Loadable(lazy(() => import('../pages/detail/page')));
+export const PlayPage = Loadable(lazy(() => import('../pages/play/page')));
 
 // export const Page404 = Loadable(lazy(() => import('../pages/404')));
 // export const Page500 = Loadable(lazy(() => import('../pages/Page500')));

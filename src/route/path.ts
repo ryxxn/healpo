@@ -1,4 +1,6 @@
 export const PATH = {
-  ROOT: '/',
-  MAIN: '/main',
+  root: '/',
+  main: '/main',
+  detail: (id: string) => `/exercise/${id}`,
+  play: (id: string) => `/exercise/${id}/play`,
 };
