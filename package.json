@@ -12,6 +12,7 @@
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "framer-motion": "^11.3.30",
+    "lucide-react": "^0.436.0",
     "react": "19.0.0-rc-b57d2823-20240822",
     "react-dom": "19.0.0-rc-b57d2823-20240822",
     "react-hot-toast": "^2.4.1",
