@@ -7,6 +7,7 @@ export const IndexedDBContext = React.createContext<IDBDatabase | undefined>(
 
 const IndexedDBProvider = ({ children }: React.PropsWithChildren) => {
   const [db, setDB] = React.useState<IDBDatabase | undefined>(undefined);
+  const [isInitialized, setIsInitialized] = React.useState(false);
 
   const initialize = async () => {
     try {
@@ -16,6 +17,7 @@ const IndexedDBProvider = ({ children }: React.PropsWithChildren) => {
         'exercise',
       ]);
       setDB(database);
+      setIsInitialized(true);
     } catch (error) {
       console.error('Failed to open database:', error);
     }
@@ -24,6 +26,10 @@ const IndexedDBProvider = ({ children }: React.PropsWithChildren) => {
   React.useEffect(() => {
     initialize();
   }, []);
+
+  if (!isInitialized) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <IndexedDBContext.Provider value={db}>{children}</IndexedDBContext.Provider>
