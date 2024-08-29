@@ -6,12 +6,12 @@ import {
   UseQueryResult,
 } from '@tanstack/react-query';
 import { queryKeys } from './query-key-factory';
-import { useIndexedDB } from '../../providers';
-import { TABLE } from '../../constants';
-import { uuidv4 } from '../../utils';
-import { IExercise } from '../../types';
+import { useIndexedDB } from '../providers';
+import { TABLE } from '../constants';
+import { uuidv4 } from '../utils';
+import { IExercise } from '../types';
 import { useNavigate } from 'react-router-dom';
-import { PATH } from '../../route';
+import { PATH } from '../route';
 import toast from 'react-hot-toast';
 
 // ----------------------------------------------------------------------
