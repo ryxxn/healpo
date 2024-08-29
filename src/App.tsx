@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {
   ToastProvider,
@@ -12,17 +10,17 @@ import { AnimatePresence } from 'framer-motion';
 
 function App() {
   return (
-    <ReactQueryProvider>
-      <ToastProvider>
-        <IndexedDBProvider>
-          <AnimatePresence>
-            <BrowserRouter>
+    <IndexedDBProvider>
+      <ReactQueryProvider>
+        <ToastProvider>
+          <BrowserRouter>
+            <AnimatePresence mode="wait">
               <Router />
-            </BrowserRouter>
-          </AnimatePresence>
-        </IndexedDBProvider>
-      </ToastProvider>
-    </ReactQueryProvider>
+            </AnimatePresence>
+          </BrowserRouter>
+        </ToastProvider>
+      </ReactQueryProvider>
+    </IndexedDBProvider>
   );
 }
 
