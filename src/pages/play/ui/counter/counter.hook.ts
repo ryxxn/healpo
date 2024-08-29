@@ -1,16 +1,16 @@
-// useStopwatch.ts
 import { useState, useRef, useCallback } from 'react';
 
-interface UseStopwatch {
+interface UseCounter {
   time: number;
   isRunning: boolean;
+  setTime: (time: number) => void;
   start: () => void;
   stop: () => void;
   reset: () => void;
   restart: () => void;
 }
 
-export const useStopwatch = (): UseStopwatch => {
+export const useCounter = (): UseCounter => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -42,5 +42,14 @@ export const useStopwatch = (): UseStopwatch => {
     start();
   }, [reset, start]);
 
-  return { time, isRunning, start, stop, reset, restart };
+  return {
+    time,
+    setTime,
+    //
+    isRunning,
+    start,
+    stop,
+    reset,
+    restart,
+  };
 };
