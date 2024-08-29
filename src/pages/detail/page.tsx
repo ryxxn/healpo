@@ -1,130 +1,102 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { InputPage, useInputPage } from './ui';
-import { motion } from 'framer-motion';
-import { useIndexedDB } from '../../providers';
-import { IExercise, ISet } from '../../types';
-import { TABLE } from '../../constants';
+import { InputPage } from './ui';
+import { IExercise } from '../../types';
 import { uuidv4 } from '../../utils';
 import { PATH } from '../../route';
+import { queryKeys, useExercise, useUpdateExercise } from '../../apis';
+import { useQueryClient } from '@tanstack/react-query';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Page = () => {
   const { id } = useParams();
 
-  const { getData, updateData } = useIndexedDB();
+  const queryClient = useQueryClient();
 
-  const [data, setData] = React.useState<IExercise>({} as IExercise);
-  const [selectedSet, setSelectedSet] = React.useState<ISet | null>(null);
+  const { data } = useExercise({ id: id!, enabled: !!id });
+  const updateMutation = useUpdateExercise();
+
+  const [selectedSetId, setSelectedSetId] = React.useState<string | null>(null);
 
   const navigate = useNavigate();
-
-  const { open, onOpen, onClose } = useInputPage();
 
   const onChange =
     (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
-      setData((prev) => ({ ...prev, [key]: value }));
+
+      queryClient.setQueryData(
+        queryKeys.exercise.detail(id!),
+        (prev: IExercise) => ({
+          ...prev,
+          [key]: value,
+        })
+      );
     };
 
   const onSave = async () => {
-    await updateData<IExercise>(TABLE.EXERCISE, data);
-    alert('저장되었습니다.');
+    updateMutation.mutate(data!);
   };
 
-  const onSelectSet = (set: ISet) => {
-    setSelectedSet(set);
-    onOpen();
+  const onSelectSet = (setId: string) => {
+    setSelectedSetId(setId);
   };
 
   const onAddSet = () => {
     const id = uuidv4();
-    setSelectedSet({
-      id,
-      name: '',
-      time: 30,
-      order: data.sets.length,
-    });
-    onOpen();
-  };
-
-  const setSet = (set: ISet) => {
-    if (!selectedSet) return;
-
-    const sets = data.sets ?? [];
-    const index = sets.findIndex((s) => s.id === set.id);
-
-    if (index === -1) {
-      sets.push(set);
-    } else {
-      sets[index] = set;
-    }
-
-    setData((prev) => ({ ...prev, sets }));
-    setSelectedSet(null);
-    onClose();
+    setSelectedSetId(id);
   };
 
   const getStackedTime = (index: number) => {
-    const stackesTime = data.sets
+    const stackedTime = data!.sets
       ?.slice(0, index + 1)
       .reduce((acc, cur) => acc + Number(cur.time), 0);
 
-    return `${stackesTime}`;
+    return `${stackedTime}`;
   };
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      if (!id) return;
-
-      const data = await getData<IExercise>(TABLE.EXERCISE, id);
-      setData(data);
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <>
-      <motion.div
-        className="max-w-md mx-auto size-full"
-        initial={{ x: '100vw' }}
-        animate={{ x: 0 }}
-        exit={{ x: '-100vw' }}
-        transition={{ duration: 0.5 }}
-      >
-        <header className="sticky top-0 left-0 h-8 p-4 flex justify-between">
-          <button onClick={() => navigate(-1)}>뒤로</button>
+      <div className="max-w-md mx-auto size-full overflow-x-hidden">
+        <header className="sticky h-16 p-4 flex justify-between">
+          <button onClick={() => navigate(-1)}>
+            <ChevronLeft />
+          </button>
           <button onClick={() => navigate(PATH.play(id!))}>play</button>
         </header>
-        <main className="container p-4">
-          <article className="mt-8">
+        <main className="container">
+          <article className="p-4">
             <section>
-              <div className="flex flex-col">
-                <label htmlFor="">어떤 운동을 하시나요?</label>
+              <div className="flex flex-col gap-4">
+                <h2 className="text-xl">어떤 운동을 하시나요?</h2>
                 <input
                   type="text"
-                  className="border-b border-gray-400"
-                  value={data.title}
+                  className="p-2 rounded-none bg-transparent border-b border-gray-400"
+                  value={data?.title}
                   onChange={onChange('title')}
+                  placeholder="ex) 스쿼트"
                 />
               </div>
             </section>
 
-            <section className="mt-4">
-              <div className="flex flex-col gap-4">
-                {data.sets?.map((set, index) => (
-                  <div className="flex flex-col gap-2">
+            <section className="mt-12">
+              <h2 className="text-xl">세트를 추가해보세요!</h2>
+              <div className="mt-4 flex flex-col gap-4">
+                {data?.sets?.map((set, index) => (
+                  <div className="mt-2 flex flex-col gap-2" key={index}>
                     <div
-                      key={index}
                       className="flex justify-between items-center"
-                      onClick={() => onSelectSet(set)}
+                      onClick={() => onSelectSet(set.id)}
                     >
                       <p>{set.name}</p>
-                      <p>{set.time}</p>
+                      <div className="flex gap-2 items-center">
+                        <span>{set.time} s</span> <ChevronRight size="16" />
+                      </div>
                     </div>
-                    <time className="text-right">
-                      {getStackedTime(index)}초 후 알림
-                    </time>
+                    <div className="text-center text-gray-400 grid grid-cols-3 items-center text-xs">
+                      <div className="w-full h-px bg-gray-300" />
+                      <div>{getStackedTime(index)}s 후 알림</div>
+                      <div className="w-full h-px bg-gray-300" />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -132,25 +104,22 @@ const Page = () => {
                 className="mt-8 w-full p-4 rounded-lg border border-primary"
                 onClick={onAddSet}
               >
-                분기 추가
+                세트 추가
               </button>
             </section>
           </article>
+          <InputPage
+            open={!!selectedSetId}
+            onClose={() => setSelectedSetId(null)}
+            setId={selectedSetId}
+          />
         </main>
-        <div className="fixed bottom-0 left-0 w-full flex">
+        <div className="w-full max-w-md fixed bottom-0 flex">
           <button className="p-4 bg-primary grow text-white" onClick={onSave}>
             저장
           </button>
         </div>
-      </motion.div>
-
-      <InputPage
-        key={open.toString()}
-        open={open}
-        onClose={onClose}
-        set={selectedSet}
-        setSet={setSet}
-      />
+      </div>
     </>
   );
 };
