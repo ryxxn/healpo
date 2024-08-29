@@ -1,1 +1,1 @@
-export * from './input-page';
+export { default as InputPage } from './input-page';
