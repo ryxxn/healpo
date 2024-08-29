@@ -83,13 +83,13 @@ const InputPage = ({ open, onClose, setId }: Props) => {
           exit={{ x: '100%' }}
           transition={{ duration: 0.2 }}
         >
-          <header className="sticky h-16 p-4 flex justify-between bg-white">
+          <header className="sticky h-16 p-4 flex justify-between bg-gray-100">
             <button onClick={onClose}>
               <ChevronLeft />
             </button>
             {!isNewSet && <button onClick={onDeleteSet}>삭제</button>}
           </header>
-          <main className="container p-4 size-full bg-white">
+          <main className="container p-4 size-full bg-gray-100">
             <div className="flex flex-col gap-2">
               <label htmlFor="">어떤 종류인가요?</label>
               <input
