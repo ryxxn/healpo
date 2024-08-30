@@ -19,7 +19,7 @@ const InputPage = ({ open, onClose, setId }: Props) => {
 
   const { data } = useExercise({ id: id!, enabled: false });
 
-  const [values, setValues] = React.useState<ISet>({} as ISet);
+  const [values, setValues] = React.useState<ISet>({name:'', time: 0} as ISet);
   const [isNewSet, setIsNewSet] = React.useState(false);
 
   const onChange =
