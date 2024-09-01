@@ -26,10 +26,10 @@ const Page = () => {
 
       queryClient.setQueryData(
         queryKeys.exercise.detail(id!),
-        (prev: IExercise) => ({
-          ...prev,
+        {
+          ...data,
           [key]: value,
-        })
+        }
       );
     };
 
@@ -71,7 +71,7 @@ const Page = () => {
                 <input
                   type="text"
                   className="p-2 rounded-none bg-transparent border-b border-gray-400"
-                  value={data?.title}
+                  value={data?.title ?? ''}
                   onChange={onChange('title')}
                   placeholder="ex) 스쿼트"
                 />
