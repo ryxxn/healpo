@@ -12,6 +12,11 @@ interface Props {
   setId: string | null;
 }
 
+const defaultValues = {
+  name: '',
+  time: 0,
+} as ISet
+
 const InputPage = ({ open, onClose, setId }: Props) => {
   const { id } = useParams();
 
@@ -19,7 +24,7 @@ const InputPage = ({ open, onClose, setId }: Props) => {
 
   const { data } = useExercise({ id: id!, enabled: false });
 
-  const [values, setValues] = React.useState<ISet>({name:'', time: 0} as ISet);
+  const [values, setValues] = React.useState<ISet>(defaultValues);
   const [isNewSet, setIsNewSet] = React.useState(false);
 
   const onChange =
@@ -46,7 +51,7 @@ const InputPage = ({ open, onClose, setId }: Props) => {
 
     const newData = { ...data, sets };
     queryClient.setQueryData(queryKeys.exercise.detail(id!), newData);
-    onClose?.();
+    onClose();
   };
 
   const onDeleteSet = () => {
@@ -60,17 +65,24 @@ const InputPage = ({ open, onClose, setId }: Props) => {
       })
     );
 
-    onClose?.();
+    onClose();
   };
 
   React.useEffect(() => {
     if (!setId) return;
 
     const set = data?.sets.find((s) => s.id === setId);
-    setValues(set ?? ({} as ISet));
+    setValues(set ?? (defaultValues));
     setIsNewSet(!set);
+
+    return () => {
+      setValues(defaultValues);
+      setIsNewSet(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setId]);
+
+  console.log(setId)
 
   return (
     <AnimatePresence>
