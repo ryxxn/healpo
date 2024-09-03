@@ -82,8 +82,6 @@ const InputPage = ({ open, onClose, setId }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setId]);
 
-  console.log(setId)
-
   return (
     <AnimatePresence>
       {open && (
