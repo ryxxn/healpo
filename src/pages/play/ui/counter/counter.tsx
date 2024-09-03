@@ -62,6 +62,7 @@ const Counter = () => {
 
       checkPoint(time);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time, isRunning, sets, playCount]);
 
   const handleStart = () => {
