@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { InputPage } from './ui';
-import { IExercise } from '../../types';
 import { uuidv4 } from '../../utils';
 import { PATH } from '../../route';
 import { queryKeys, useExercise, useUpdateExercise } from '../../apis';
@@ -84,7 +83,7 @@ const Page = () => {
                 {data?.sets?.map((set, index) => (
                   <div className="mt-2 flex flex-col gap-2" key={index}>
                     <div
-                      className="flex justify-between items-center"
+                      className="flex justify-between items-center cursor-pointer"
                       onClick={() => onSelectSet(set.id)}
                     >
                       <p>{set.name}</p>
