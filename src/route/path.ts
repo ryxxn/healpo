@@ -3,4 +3,5 @@ export const PATH = {
   main: '/main',
   detail: (id: string) => `/exercise/${id}`,
   play: (id: string) => `/exercise/${id}/play`,
+  recommended: (id: string) => `/recommended/${id}`,
 };
