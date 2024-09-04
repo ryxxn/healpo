@@ -1,7 +1,8 @@
 import { Navigate, Outlet, useLocation, useRoutes } from 'react-router-dom';
 
-import { DetailPage, MainPage } from './elements';
-import Play from '../pages/play/page';
+import { DetailPage, MainPage, RecommendedPage } from './elements';
+import Play from '../pages/detail/play/page';
+import RecommendedPlayPage from '../pages/recommended/play/page';
 import { PATH } from './path';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -20,6 +21,8 @@ export default function Router() {
         { path: 'main', element: <MainPage /> },
         { path: 'exercise/:id', element: <DetailPage /> },
         { path: 'exercise/:id/play', element: <Play /> },
+        { path: 'recommended/:id', element: <RecommendedPage /> },
+        { path: 'recommended/:id/play', element: <RecommendedPlayPage /> },
       ],
     },
     // error
