@@ -23,3 +23,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.animated-button {
+  transition: 0.2s;
+}
+.animated-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.animated-button:disabled > svg {
+  color: #888;
+}
+.animated-button:active:not(:disabled) {
+  transform: scale(0.9);
+}
