@@ -5,9 +5,11 @@ import { ICONS } from '../../../constants';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../../route';
 
-type Props = Pick<IExercise, 'id' | 'title' | 'iconId'>;
+interface Props extends Pick<IExercise, 'id' | 'title' | 'iconId'> {
+  isRecommended?: boolean;
+}
 
-const ExerciseCard = ({ id, title, iconId }: Props) => {
+const ExerciseCard = ({ id, title, iconId, isRecommended = false }: Props) => {
   const navigate = useNavigate();
 
   const getIcon = (iconId: string | null) => {
@@ -17,6 +19,10 @@ const ExerciseCard = ({ id, title, iconId }: Props) => {
   };
 
   const handleClick = () => {
+    if (isRecommended) {
+      navigate(PATH.recommended(id));
+      return;
+    }
     navigate(PATH.detail(id));
   };
 
@@ -24,6 +30,7 @@ const ExerciseCard = ({ id, title, iconId }: Props) => {
 
   return (
     <Card
+      role="button"
       className="mt-4 p-4 min-w-32 w-32 h-40 flex flex-col justify-between"
       onClick={handleClick}
     >
