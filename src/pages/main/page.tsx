@@ -1,24 +1,7 @@
 import { Card } from '../../components/card';
 import { ExerciseCard } from './ui';
 import { useAddExercise, useExerciseList } from '../../apis';
-
-const recomendedSet = [
-  {
-    id: '1',
-    title: '5 X 5 세트',
-    iconId: '1',
-  },
-  {
-    id: '2',
-    title: 'Interval\n트레이닝',
-    iconId: '2',
-  },
-  {
-    id: '3',
-    title: '10 X 10 세트',
-    iconId: '3',
-  },
-];
+import { recommendedSets } from '../../constants';
 
 const Page = () => {
   const { data: mySet } = useExerciseList();
@@ -40,12 +23,13 @@ const Page = () => {
         <article className="p-4">
           <h1 className="text-3xl font-bold">헬뽀 추천 세트</h1>
           <section className="flex gap-4 overflow-x-auto">
-            {recomendedSet.map((set, index) => (
+            {recommendedSets.map((set, index) => (
               <ExerciseCard
                 key={index}
                 id={set.id}
                 title={set.title}
                 iconId={set.iconId}
+                isRecommended
               />
             ))}
           </section>
@@ -54,7 +38,7 @@ const Page = () => {
           <h1 className="text-3xl font-bold">내 운동 세트</h1>
           <section className="flex gap-4 overflow-x-auto">
             <Card
-              className="mt-4 p-4 min-w-32 w-32 h-40 flex flex-col justify-between"
+              className="mt-4 p-4 min-w-32 w-32 h-40 flex flex-col justify-between cursor-pointer animated-button"
               onClick={handleClick}
             >
               <p>추가</p>
