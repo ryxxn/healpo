@@ -31,7 +31,7 @@ const ExerciseCard = ({ id, title, iconId, isRecommended = false }: Props) => {
   return (
     <Card
       role="button"
-      className="mt-4 p-4 min-w-32 w-32 h-40 flex flex-col justify-between"
+      className="mt-4 p-4 min-w-32 w-32 h-40 flex flex-col justify-between animated-button"
       onClick={handleClick}
     >
       <p>{title}</p>
