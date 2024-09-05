@@ -5,6 +5,7 @@ import { uuidv4 } from '../../utils';
 import { PATH } from '../../route';
 import { useExercise, useUpdateExercise } from '../../apis';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { PageLayout } from '../../layouts';
 
 const Page = () => {
   const { id } = useParams();
@@ -48,14 +49,14 @@ const Page = () => {
   }, [data]);
 
   return (
-    <div className="max-w-md mx-auto size-full overflow-x-hidden">
+    <PageLayout>
       <header className="sticky h-16 p-4 flex justify-between">
         <button onClick={() => navigate(-1)}>
           <ChevronLeft />
         </button>
         <button onClick={() => navigate(PATH.play(id!))}>play</button>
       </header>
-      <main className="container">
+      <main className="container grow">
         <article className="p-4">
           <section>
             <div className="flex flex-col gap-4">
@@ -106,12 +107,15 @@ const Page = () => {
           setId={selectedSetId}
         />
       </main>
-      <div className="w-full max-w-md fixed bottom-0 flex">
-        <button className="p-4 bg-primary grow text-white" onClick={onSave}>
+      <div className="w-full max-w-md sticky bottom-0 flex">
+        <button
+          className="p-4 bg-primary grow text-white safe-area-bottom"
+          onClick={onSave}
+        >
           저장
         </button>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

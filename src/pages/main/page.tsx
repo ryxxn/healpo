@@ -2,6 +2,7 @@ import { Card } from '../../components/card';
 import { ExerciseCard } from './ui';
 import { useAddExercise, useExerciseList } from '../../apis';
 import { recommendedSets } from '../../constants';
+import { PageLayout } from '../../layouts';
 
 const Page = () => {
   const { data: mySet } = useExerciseList();
@@ -15,7 +16,7 @@ const Page = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto size-full">
+    <PageLayout>
       <header className="sticky top-0 left-0 h-16 p-4 text-primary">
         healpo
       </header>
@@ -54,7 +55,7 @@ const Page = () => {
           </section>
         </article>
       </main>
-    </div>
+    </PageLayout>
   );
 };
 
