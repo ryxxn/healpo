@@ -1,10 +1,9 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { InputPage } from './ui';
+import { useParams } from 'react-router-dom';
+import { DetailPageHeader, InputPage } from './ui';
 import { uuidv4 } from '../../utils';
-import { PATH } from '../../route';
 import { useExercise, useUpdateExercise } from '../../apis';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { PageLayout } from '../../layouts';
 
 const Page = () => {
@@ -16,8 +15,6 @@ const Page = () => {
   const [selectedSetId, setSelectedSetId] = React.useState<string | null>(null);
 
   const [title, setTitle] = React.useState(data?.title ?? '');
-
-  const navigate = useNavigate();
 
   const onSave = async () => {
     updateMutation.mutate({
@@ -50,12 +47,8 @@ const Page = () => {
 
   return (
     <PageLayout>
-      <header className="sticky h-16 p-4 flex justify-between">
-        <button onClick={() => navigate(-1)}>
-          <ChevronLeft />
-        </button>
-        <button onClick={() => navigate(PATH.play(id!))}>play</button>
-      </header>
+      <DetailPageHeader />
+
       <main className="container grow">
         <article className="p-4">
           <section>
@@ -107,6 +100,7 @@ const Page = () => {
           setId={selectedSetId}
         />
       </main>
+
       <div className="w-full max-w-md sticky bottom-0 flex">
         <button
           className="p-4 bg-primary grow text-white safe-area-bottom"
