@@ -3,14 +3,16 @@ import { ExerciseCard } from './ui';
 import { useAddExercise, useExerciseList } from '../../apis';
 import { recommendedSets } from '../../constants';
 import { PageLayout } from '../../layouts';
+import { customConfirm } from '../../utils';
 
 const Page = () => {
   const { data: mySet } = useExerciseList();
 
   const addMutation = useAddExercise();
 
-  const handleClick = () => {
-    if (window.confirm('추가하시겠습니까?') === false) return;
+  const handleClick = async () => {
+    const answer = await customConfirm('추가하시겠습니까?');
+    if (answer === false) return;
 
     addMutation.mutate();
   };
