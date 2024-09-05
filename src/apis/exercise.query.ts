@@ -4,6 +4,7 @@ import {
   UseQueryOptions,
   UseMutationOptions,
   UseQueryResult,
+  useQueryClient,
 } from '@tanstack/react-query';
 import { queryKeys } from './query-key-factory';
 import { useIndexedDB } from '../providers';
@@ -46,8 +47,6 @@ export const useExercise = ({
   return useQuery({
     queryKey: queryKeys.exercise.detail(id),
     queryFn: async () => db.getData(TABLE.EXERCISE, id),
-    gcTime: Infinity,
-    staleTime: Infinity,
     ...options,
   }) as UseQueryResult<IExercise, Error>;
 };
@@ -86,10 +85,14 @@ export const useAddExercise = (props?: UseMutationProps<void>) => {
 // PUT
 export const useUpdateExercise = (props?: UseMutationProps<IExercise>) => {
   const db = useIndexedDB();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: IExercise) => db.updateData(TABLE.EXERCISE, data),
-    onSuccess: () => toast.success('저장되었습니다.'),
+    onSuccess: () => {
+      toast.success('저장되었습니다.');
+      queryClient.invalidateQueries({ queryKey: queryKeys.exercise.list });
+    },
     onError: () => toast.error('저장에 실패했습니다.'),
     ...props,
   });
