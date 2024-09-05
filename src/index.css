@@ -38,7 +38,7 @@ code {
   transform: scale(0.9);
 }
 
-#root {
+body {
   /* 구형 iOS 지원 (11) */
   padding-top: constant(safe-area-inset-top);
   padding-left: constant(safe-area-inset-left);
