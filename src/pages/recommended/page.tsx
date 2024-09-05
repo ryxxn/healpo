@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { PATH } from '../../route';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Play } from 'lucide-react';
 import { recommendedSets } from '../../constants';
 import { PageLayout } from '../../layouts';
 
@@ -26,7 +26,7 @@ const Page = () => {
           <ChevronLeft />
         </button>
         <button onClick={() => navigate(PATH.recommendedPlay(id!))}>
-          play
+          <Play />
         </button>
       </header>
       <main className="container">
