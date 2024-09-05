@@ -15,7 +15,7 @@ interface Props {
 const defaultValues = {
   name: '',
   time: 0,
-} as ISet
+} as ISet;
 
 const InputPage = ({ open, onClose, setId }: Props) => {
   const { id } = useParams();
@@ -72,13 +72,13 @@ const InputPage = ({ open, onClose, setId }: Props) => {
     if (!setId) return;
 
     const set = data?.sets.find((s) => s.id === setId);
-    setValues(set ?? (defaultValues));
+    setValues(set ?? defaultValues);
     setIsNewSet(!set);
 
     return () => {
       setValues(defaultValues);
       setIsNewSet(false);
-    }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setId]);
 
@@ -126,8 +126,11 @@ const InputPage = ({ open, onClose, setId }: Props) => {
               </div>
             </div>
           </main>
-          <div className="w-full max-w-md fixed bottom-0 flex">
-            <button className="p-4 bg-primary grow text-white" onClick={onSave}>
+          <div className="w-full max-w-md sticky bottom-0 flex">
+            <button
+              className="p-4 bg-primary grow text-white safe-area-bottom"
+              onClick={onSave}
+            >
               저장
             </button>
           </div>
