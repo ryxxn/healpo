@@ -97,3 +97,23 @@ export const useUpdateExercise = (props?: UseMutationProps<IExercise>) => {
     ...props,
   });
 };
+
+// ----------------------------------------------------------------------
+
+// Delete
+export const useDeleteExercise = (props?: UseMutationProps<string>) => {
+  const db = useIndexedDB();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (id: string) => db.deleteData(TABLE.EXERCISE, id),
+    onSuccess: () => {
+      toast.success('삭제되었습니다.');
+      queryClient.invalidateQueries({ queryKey: queryKeys.exercise.list });
+      navigate(PATH.main);
+    },
+    onError: () => toast.error('삭제에 실패했습니다.'),
+    ...props,
+  });
+};
