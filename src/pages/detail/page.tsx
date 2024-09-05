@@ -3,37 +3,26 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { InputPage } from './ui';
 import { uuidv4 } from '../../utils';
 import { PATH } from '../../route';
-import { queryKeys, useExercise, useUpdateExercise } from '../../apis';
-import { useQueryClient } from '@tanstack/react-query';
+import { useExercise, useUpdateExercise } from '../../apis';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Page = () => {
   const { id } = useParams();
-
-  const queryClient = useQueryClient();
 
   const { data } = useExercise({ id: id!, enabled: !!id });
   const updateMutation = useUpdateExercise();
 
   const [selectedSetId, setSelectedSetId] = React.useState<string | null>(null);
 
+  const [title, setTitle] = React.useState(data?.title ?? '');
+
   const navigate = useNavigate();
 
-  const onChange =
-    (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-
-      queryClient.setQueryData(
-        queryKeys.exercise.detail(id!),
-        {
-          ...data,
-          [key]: value,
-        }
-      );
-    };
-
   const onSave = async () => {
-    updateMutation.mutate(data!);
+    updateMutation.mutate({
+      ...data!,
+      title,
+    });
   };
 
   const onSelectSet = (setId: string) => {
@@ -70,8 +59,8 @@ const Page = () => {
                 <input
                   type="text"
                   className="p-2 rounded-none bg-transparent border-b border-gray-400"
-                  value={data?.title ?? ''}
-                  onChange={onChange('title')}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="ex) 스쿼트"
                 />
               </div>
