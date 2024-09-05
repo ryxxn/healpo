@@ -15,7 +15,7 @@ const Page = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto size-full">
       <header className="sticky top-0 left-0 h-16 p-4 text-primary">
         healpo
       </header>

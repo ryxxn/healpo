@@ -48,7 +48,7 @@ const Page = () => {
   }, [data]);
 
   return (
-    <div className="max-w-md mx-auto flex-1 overflow-x-hidden">
+    <div className="max-w-md mx-auto size-full overflow-x-hidden">
       <header className="sticky h-16 p-4 flex justify-between">
         <button onClick={() => navigate(-1)}>
           <ChevronLeft />
