@@ -42,6 +42,11 @@ const Page = () => {
     return `${stackedTime}`;
   };
 
+  React.useEffect(() => {
+    if (!data) return;
+    setTitle(data.title ?? '');
+  }, [data]);
+
   return (
     <>
       <div className="max-w-md mx-auto size-full overflow-x-hidden">
