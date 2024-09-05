@@ -36,7 +36,9 @@ export default function Router() {
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <motion.div key={location.pathname}>{routes}</motion.div>
+      <motion.div key={location.pathname} className="flex flex-1 relative">
+        {routes}
+      </motion.div>
     </AnimatePresence>
   );
 }

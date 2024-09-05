@@ -6,7 +6,6 @@ import {
 } from './providers';
 import { Router } from './route';
 import { BrowserRouter } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 
 function App() {
   return (
@@ -14,9 +13,7 @@ function App() {
       <ReactQueryProvider>
         <ToastProvider>
           <BrowserRouter>
-            <AnimatePresence mode="wait">
-              <Router />
-            </AnimatePresence>
+            <Router />
           </BrowserRouter>
         </ToastProvider>
       </ReactQueryProvider>
