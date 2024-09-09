@@ -8,6 +8,8 @@
 
 indexedDB를 사용하여 로컬에 데이터를 저장하여 사용할 수 있다.
 
+[앱스토어 바로가기](https://weppstore.com/wepps/cm0ny43680000eo8f0cnnng4q)
+
 ---
 
 ## 개발 기간
