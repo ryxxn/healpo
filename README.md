@@ -5,3 +5,24 @@
 그래서 시간관리 방법론 중 하나인 `뽀모도로(Pomodoro)` 기법에서 고안하여 만든 서비스이다.
 
 예를 들어 한 종목 5세트를 수행함에 있어서 1세트 30초, 휴식 1분으로 일정한 템포로 트레이닝을 할 수 있다.
+
+indexedDB를 사용하여 로컬에 데이터를 저장하여 사용할 수 있다.
+
+---
+
+## 개발 기간
+   - 2024.08.27 ~ 2024.09.03
+     
+## Stacks
+   - React
+   - Typescript
+   - indexedDB
+   - zustand
+   - react-query
+   - tailwind
+
+---
+
+![헬뽀](https://github.com/user-attachments/assets/4488acd9-367c-4063-ad67-2d3f154a1efd)
+![헬뽀-1](https://github.com/user-attachments/assets/3c859c9a-63b0-4d55-b69b-9a487a30eb09)
+![헬뽀-2](https://github.com/user-attachments/assets/a487be32-212a-4827-80aa-4a610ac85fae)
